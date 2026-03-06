@@ -149,13 +149,19 @@ cp -r aiox-squads/squads/copy ./squads/copy
 
 ## Catálogo de Squads
 
-Squads disponíveis neste repositório.
+Squads publicados pela comunidade neste repositório.
 
 | Squad | O que faz | Status |
 |-------|-----------|--------|
-| [**squad-creator-pro**](squads/squad-creator-pro/) | Upgrade pack para o Squad Creator base — mind cloning, model routing, 3 agentes especialistas, axioma assessment | Pago |
+| _Nenhum squad publicado ainda_ | Seja o primeiro a contribuir! | — |
 
 > Tem um squad pronto? [Abra um PR](#contribuindo) e compartilhe com a comunidade.
+
+### Squad Creator: Free vs Pro
+
+O AIOX já vem com o **Squad Creator Free** — 1 agente, 24 tasks, criação template-driven. Para quem precisa de mais, existe o **Squad Creator Pro**: mind cloning, model routing, 3 agentes especialistas e axioma assessment.
+
+Veja o [comparativo completo](squads/squad-creator-pro/).
 
 <br/>
 
