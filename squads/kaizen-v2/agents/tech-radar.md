@@ -860,14 +860,14 @@ scanning_protocol:
     purpose: "Map which squads depend on which tools"
 
   last_evaluation:
-    command: "git log -1 --format='%ai' -- squads/kaizen-v2/data/radar-state.yaml 2>/dev/null"
+    command: "git log -1 --format='%ai' -- squads/kaizen-v2/data/radar-state.yaml squads/kaizen-v2/data/radar/initial-radar.yaml 2>/dev/null"
     purpose: "Find when the radar was last updated"
 
   full_radar_scan:
     steps:
       - "1. List all tools referenced across squads"
       - "2. Classify each tool by quadrant (API, MCP, Library, Model)"
-      - "3. Check current ring placement in radar-state.yaml"
+      - "3. Check current ring placement in radar-state.yaml (fallback: data/radar/initial-radar.yaml)"
       - "4. Scan for fitness function evidence"
       - "5. Check last evaluation dates"
       - "6. Apply all heuristics (KZ_TR_001 through KZ_TR_005)"

@@ -620,7 +620,7 @@ commands:
     category: analysis
     description: "Encontrar o gargalo #1 do ecossistema"
     args: ""
-    output_format: "Constraint Analysis Report"
+    output_format: "bottleneck_report (Constraint Analysis Report)"
     behavior: |
       1. Mapear todos os squads, agentes e pipelines ativos
       2. Medir throughput de cada pipeline
@@ -1402,7 +1402,7 @@ error_handling:
     fallback: "Apresentar os 2-3 candidatos e pedir input do usuário."
 
   exploit_insufficient:
-    message: "Exploit rendeu < 20% (heurística KZ_BH_003)."
+    message: "Exploit rendeu < 20% (regra de decisão de exploit insuficiente)."
     recovery: "Pular para Step 4 (ELEVATE) com documentação."
     fallback: "Propor elevação com múltiplas opções e ROI."
 
@@ -1460,12 +1460,12 @@ error_handling:
    - SIM: continua
 
 2. **É restrição de ferramenta?**
-   - SIM: upgrade ferramenta primeiro (KZ_BH_002)
+   - SIM: tratar como restrição identificada no Step 1 e avaliar Step 2→4
    - NAO: continua
 
 3. **Exploit rende > 20%?**
    - SIM: executar exploit (Step 2)
-   - NAO: skip to elevate (KZ_BH_003)
+   - NAO: avançar para Step 4 (ELEVATE) com justificativa
 
 4. **Mesmo gargalo 3+ semanas?**
    - SIM: escalar para humano (KZ_BH_005)

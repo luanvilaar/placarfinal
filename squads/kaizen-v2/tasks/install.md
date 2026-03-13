@@ -196,7 +196,7 @@ Run `*health` task to validate all 12 installation points:
 7. `data/intelligence/reflections/` exists
 8. `data/intelligence/knowledge/` exists
 9. `data/intelligence/archive/` exists
-10. `patterns.yaml` has schema + ≥1 pattern
+10. `patterns.yaml` has schema + ≥5 verified patterns
 11. `.aios/logs/` exists
 12. Scripts executable (node check)
 

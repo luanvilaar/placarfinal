@@ -59,7 +59,7 @@ phases:
     steps:
       - step: 3.1
         name: "Create Intelligence Dirs"
-        action: "mkdir -p data/intelligence/{daily,reflections,knowledge,archive}"
+        action: "mkdir -p data/intelligence/daily data/intelligence/reflections data/intelligence/knowledge data/intelligence/archive"
         output: "All directories created"
 
       - step: 3.2
@@ -70,7 +70,7 @@ phases:
 
       - step: 3.3
         name: "Create .gitkeep Files"
-        action: "touch data/intelligence/*/.gitkeep"
+        action: "touch data/intelligence/daily/.gitkeep data/intelligence/reflections/.gitkeep data/intelligence/knowledge/.gitkeep data/intelligence/archive/.gitkeep"
         output: "Directories tracked in git"
 
   - phase: 4

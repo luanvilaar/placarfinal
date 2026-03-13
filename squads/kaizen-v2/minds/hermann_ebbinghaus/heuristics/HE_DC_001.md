@@ -21,7 +21,7 @@ HE_DC_001:
   # or selecting which patterns to surface in briefing. NOT used in the
   # exponential decay formula (decay_score = e^(-rate * days)).
   weights:
-    days_since_observed: 0.9     # principal fator de decay
+    days_since_reinforced: 0.9   # principal fator de decay
     verification_count: 0.85     # patterns verificados decaem mais lento
     usage_in_briefing: 0.8       # se foi usado recentemente via briefing
     cross_session_sighting: 0.75 # observado em múltiplas sessões
@@ -29,8 +29,8 @@ HE_DC_001:
   thresholds:
     fresh: 1.0                   # recém-observado ou reinforced
     active: 0.7                  # uso regular
-    warm: 0.5                    # ainda relevante
-    cold: 0.3                    # sai do briefing
+    warm: 0.3                    # ainda relevante
+    cold: 0.1                    # sai do briefing
     archive: 0.1                 # movido para archive/
     delete: 0.05                 # removido permanentemente
 
@@ -59,18 +59,18 @@ HE_DC_001:
 
 ```text
 PASSO 1: Coletar Dados
-  - Para cada pattern: last_observed, verification_count, decay_rate
-  - Calcular: days_since_observed = today - last_observed
+  - Para cada pattern: last_reinforced, verification_count, decay_rate
+  - Calcular: days_since_reinforced = today - last_reinforced
 
 PASSO 2: Calcular Score
-  - decay_score = e^(-rate × days_since_observed)
+  - decay_score = e^(-rate × days_since_reinforced)
   - rate = 0.025 se verified, 0.05 se general
 
 PASSO 3: Classificar
   - Fresh (1.0): recém-reforçado
   - Ativo (>=0.7): uso regular
-  - Morno (>=0.3): ainda no briefing
-  - Frio (<0.3): fora do briefing
+  - Morno (>=0.3): ainda no briefing se houver espaço
+  - Frio (>=0.1 e <0.3): fora do briefing
   - Archive (<0.1): mover para archive/
   - Delete (<0.05): remover permanentemente
 

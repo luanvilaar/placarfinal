@@ -1,5 +1,5 @@
 name: kaizen-v2
-version: 2.0.0
+version: 2.2.0
 status: ACTIVE
 description: >-
   Evolução do kaizen v1: sistema nervoso do projeto com sensoriamento diário (Tier 0).
@@ -55,6 +55,9 @@ commands:
   - name: "*analyze"
     description: "[v1] Análise completa — 6 dimensões"
     skill: "kaizen:analyze"
+  - name: "*self-improve"
+    description: "Meta-análise e auto-melhoria do squad"
+    skill: "kaizen-v2:self-improve"
   - name: "*gaps"
     description: "[v1] Detecta competências faltando"
     skill: "kaizen:gaps"

@@ -57,9 +57,12 @@ task:
     - id: "2"
       name: "Analisar utilização dos agentes"
       action: |
-        1. Verificar git log para ativações de cada agente
-        2. Verificar quais comandos foram usados
-        3. Identificar agentes nunca ativados → candidatos a remoção ou ajuste
+        Fontes primárias:
+        1. Verificar .aios/logs/ para ativações de cada agente
+        2. Verificar data/intelligence/daily/ para comandos usados por sessão
+        Corroboração secundária:
+        3. Verificar git log para confirmar atividade detectada nas fontes primárias
+        4. Identificar agentes nunca ativados → candidatos a remoção ou ajuste
 
     - id: "3"
       name: "Verificar saúde dos dados"
@@ -76,8 +79,13 @@ task:
         - AÇÃO específica (arquivo + mudança)
         - TIPO: CALIBRAR | TRIGGER | BASELINE | TEMPLATE | AGENTE
         - ESFORÇO: P/M/G
-        Aplicar automaticamente se esforço P e não-destrutivo.
-        Senão, reportar para aprovação.
+        Se esforço P e não-destrutivo:
+        1. Criar snapshot diff dos arquivos afetados antes de aplicar
+        2. Aplicar a melhoria automaticamente
+        3. Validar resultado contra quality gate (acceptance_criteria)
+        4. Se validação falhar, reverter usando snapshot diff
+        5. Registrar resultado (aplicado ou revertido) no CHANGELOG
+        Se esforço M/G ou destrutivo, reportar para aprovação humana.
 
     - id: "5"
       name: "Atualizar baseline"

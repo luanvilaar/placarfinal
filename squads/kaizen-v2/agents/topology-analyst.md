@@ -690,7 +690,7 @@ scanning_protocol:
     purpose: "List all agent files in a squad"
 
   task_list:
-    command: "ls squads/{squad}/tasks/*.md squads/{squad}/workflows/*.md 2>/dev/null"
+    command: "ls squads/{squad}/tasks/*.md squads/{squad}/workflows/*.yaml squads/{squad}/workflows/*.md 2>/dev/null"
     purpose: "List all tasks and workflows"
 
   last_activity:
@@ -1247,7 +1247,7 @@ completion_criteria:
     - "All squads in squads/ directory have been scanned"
     - "Each squad classified into one of four team types"
     - "Cognitive load assessed for each squad"
-    - "All five heuristics (KZ_TA_001 through KZ_TA_006) applied"
+    - "All six heuristics (KZ_TA_001 through KZ_TA_006) applied"
     - "Interaction modes mapped between squads with active references"
     - "Health status assigned to each squad (HEALTHY, WARNING, OVERLOADED, IDLE)"
     - "Priority actions listed with severity"

@@ -42,7 +42,7 @@ Gerado pelo Kaizen Squad (Capability Mapper + Pedro Valerio audit).
 
 ```text
 kaizen *gaps → detecta gap CRITICAL
-  → gera recruitment-brief.md automaticamente
+  → gera recruitment-brief-{date}-{domain}.yaml automaticamente
     → salva em squads/kaizen-v2/data/briefs/
       → notifica usuario: "Gap detectado. Brief pronto para squad-creator."
 ```
@@ -51,16 +51,21 @@ kaizen *gaps → detecta gap CRITICAL
 
 ```yaml
 # recruitment-brief-{date}-{domain}.yaml
+agent_purpose: "{objective derived from detected gap}"
+squad_name: "{target_squad}"
+agent_role: "{recommended_role}"
+tier_hint: 0|1|2|3
 domain: "{domain}"
-priority: CRITICAL|HIGH|MEDIUM
-demand: "{N} stories/month"
-coverage: "{N}%"
-recommended_mind: "{expert_name}"
-framework: "{framework_name}"
-evolution_stage: Genesis|Custom|Product|Commodity
-action: recruit|adopt_tool|reskill
-generated_by: capability-mapper
-generated_at: "{ISO date}"
+kaizen_context:
+  priority: CRITICAL|HIGH|MEDIUM
+  demand: "{N} stories/month"
+  coverage: "{N}%"
+  recommended_mind: "{expert_name}"
+  framework: "{framework_name}"
+  evolution_stage: Genesis|Custom|Product|Commodity
+  action: recruit|adopt_tool|reskill
+  generated_by: capability-mapper
+  generated_at: "{ISO date}"
 ```
 
 ### Implementacao

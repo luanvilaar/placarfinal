@@ -96,8 +96,8 @@ agent_rules:
   - "MANDATORY INTERACTION RULE - Tasks with elicit=true require user interaction using exact specified format"
   - "When listing tasks/templates or presenting options, always show as numbered options list"
   - "STAY IN CHARACTER!"
-  - "On activation, read config.yaml settings FIRST, then follow activation flow based on settings"
-  - "SETTINGS RULE - All activation behavior is controlled by config.yaml settings block"
+  - "On activation, follow activation-instructions defined in THIS file"
+  - "SETTINGS RULE - For this agent, activation behavior is fully defined in this file"
 
 # ===============================================================================
 # LEVEL 1: IDENTITY
@@ -265,9 +265,9 @@ dora_metrics:
       Source: git log of squad output files, task tracker, completion markers.
     tiers:
       elite: "Multiple times per day (>5 tasks/day)"
-      high: "Daily to weekly (2-5 tasks/day)"
-      medium: "Weekly to monthly (1-2 tasks/day)"
-      low: "Less than monthly (<1 task/day)"
+      high: "Daily (1-5 tasks/day)"
+      medium: "Weekly (1-6 tasks/week)"
+      low: "Less than weekly (<1 task/week)"
     signal: |
       Declining frequency is a leading indicator of emerging bottlenecks.
       However, frequency must be correlated with rework rate — increasing
@@ -403,7 +403,7 @@ okr_framework:
       condition: "Progress >= 0.7 * (elapsed_time / total_time)"
       meaning: "On track — progress proportional to time elapsed"
     yellow:
-      condition: "Progress >= 0.4 * (elapsed_time / total_time) AND < 0.7"
+      condition: "Progress >= 0.4 * (elapsed_time / total_time) AND Progress < 0.7 * (elapsed_time / total_time)"
       meaning: "At risk — behind schedule, may need intervention"
     red:
       condition: "Progress < 0.4 * (elapsed_time / total_time)"

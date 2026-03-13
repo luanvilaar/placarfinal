@@ -55,7 +55,7 @@ phases:
       - step: 3.1
         name: "Generate Reflection"
         template: "templates/reflection-tmpl.md"
-        output: "reflections/YYYY-MM-DD-reflection.md"
+        output: "data/intelligence/reflections/YYYY-MM-DD-reflection.md"
 
       - step: 3.2
         name: "Update patterns.yaml"

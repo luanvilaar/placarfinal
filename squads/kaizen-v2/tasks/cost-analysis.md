@@ -14,10 +14,32 @@ task:
     - nome: usage_metrics
       tipo: object
       obrigatorio: true
+    - nome: previous_reports
+      tipo: object
+      obrigatorio: true
+      description: "All previous agent reports (topology, performance, bottleneck, capability, radar)"
+    - nome: squad_config
+      tipo: object
+      obrigatorio: false
+      description: "Squad configuration from squads/*/config/config.yaml"
+    - nome: pricing_data
+      tipo: object
+      obrigatorio: false
+      description: "Model and API pricing data"
   output_schema:
     - nome: cost_report
       tipo: markdown
       obrigatorio: true
+    - nome: total_spend
+      tipo: number
+      obrigatorio: true
+    - nome: waste_amount
+      tipo: number
+      obrigatorio: true
+    - nome: squad_costs
+      tipo: array
+      obrigatorio: true
+      description: "Per-squad cost breakdown [{squad_name, spend, roi}]"
   checklist:
     - Catalogar custos por ferramenta/servico
     - Aplicar Activity-Based Costing (Kaplan)

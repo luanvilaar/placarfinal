@@ -7,7 +7,7 @@ Technical guide for hooks, troubleshooting, and configuration.
 ### Stop Hook (`stop-capture.cjs`)
 
 **Trigger:** Session exit (Stop event)
-**Timeout:** 3 seconds (fail-silent)
+**Timeout:** 5 seconds (fail-silent)
 **Function:** Capture daily YAML automatically
 
 **Registration:**
@@ -41,7 +41,7 @@ Technical guide for hooks, troubleshooting, and configuration.
 ### SessionStart Hook (`session-briefing.cjs`)
 
 **Trigger:** Session start (SessionStart event)
-**Timeout:** 1 second (fail-silent)
+**Timeout:** 3 seconds (fail-silent)
 **Function:** Inject top patterns + recent learnings
 
 **Registration:**
@@ -51,7 +51,7 @@ Technical guide for hooks, troubleshooting, and configuration.
     "SessionStart": [
       {
         "name": "kaizen-v2-session-briefing",
-        "type": "SessionStart",
+        "type": "command",
         "command": "node squads/kaizen-v2/scripts/session-briefing.cjs"
       }
     ]
@@ -77,7 +77,7 @@ In `config/config.yaml`:
 hooks:
   stop_hook:
     enabled: true
-    timeout_ms: 3000
+    timeout_ms: 5000
     fail_silent: true
 ```
 
@@ -238,7 +238,7 @@ node -e "console.log(require('fs').readFileSync('/dev/stdin', 'utf8').length)" \
 ```bash
 if [ -d .aios-core/ ]; then PROJECT_TYPE="aios"
 elif [ -d .aiox/ ]; then PROJECT_TYPE="aiox"
-else; echo "ERROR: Not AIOS or AIOX"; fi
+else echo "ERROR: Not AIOS or AIOX"; fi
 ```
 
 ### Hook Merge
@@ -274,7 +274,7 @@ Hooks are appended to existing `.claude/settings.json`:
 
 ### Disk Usage
 
-```
+```plaintext
 data/intelligence/
 ├── daily/           # ~30KB/month (compacts quarterly)
 ├── reflections/     # ~10KB/month
@@ -361,7 +361,7 @@ intelligence:
 
 In `scripts/session-briefing.cjs`:
 ```javascript
-max_briefing_kb: 2,        // Increase if needed
+max_briefing_bytes: 2048,  // In bytes; increase if needed
 max_patterns: 5,           // Reduce if too much context
 ```
 

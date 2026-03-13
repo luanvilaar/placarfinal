@@ -14,6 +14,9 @@ Saida:
   - nome: updated_radar
     tipo: yaml
     obrigatorio: true
+  - nome: radar_report
+    tipo: markdown
+    obrigatorio: true
 Checklist:
   - Carregar radar atual (initial-radar.yaml)
   - Avaliar ferramentas com Fitness Functions
@@ -119,8 +122,12 @@ task:
         Recommend consolidation where applicable
 
   output:
-    format: "Technology Radar"
-    template: "templates/tech-radar-tmpl.md"
+    - artifact: updated_radar
+      format: "yaml"
+      path: "data/radar/radar-{date}.yaml"
+    - artifact: radar_report
+      format: "markdown"
+      template: "templates/tech-radar-tmpl.md"
 
   acceptance_criteria:
     - "All tools categorized into quadrants"
@@ -139,5 +146,5 @@ task:
 
   action_items:
     - "Run tech-radar *radar"
-    - "Save updated radar to data/radar/"
+    - "Save updated radar to squads/kaizen-v2/data/radar/"
     - "Hand off tool gap recommendations to kaizen-chief"

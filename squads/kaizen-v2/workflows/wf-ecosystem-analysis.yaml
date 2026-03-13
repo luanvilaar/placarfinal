@@ -56,7 +56,7 @@ workflow:
       steps:
         - id: "0.1"
           name: "Scan squad registry"
-          action: "Read squads/squad-creators/data/squad-registry.yaml"
+          action: "Read squads/squad-creator/data/squad-registry.yaml"
           output: "squad_list"
 
         - id: "0.2"
@@ -111,7 +111,7 @@ workflow:
 
         - id: "0.5.3"
           name: "Run auto-healing gate"
-          action: "bash scripts/auto-healing-gate.sh --all || true"
+          action: "bash scripts/auto-healing-gate.sh --all"
           executor: worker
           output: "healing_report"
 

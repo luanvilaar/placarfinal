@@ -20,15 +20,15 @@ task:
 - `data/intelligence/archive/` (existing archived patterns)
 
 ### Output
-- **Rotate dailies:** Move `daily/` files > 90 days old to `archive/dailies/`
-- **Archive patterns:** Move patterns with decay < 0.1 to `archive/patterns.yaml.archive`
+- **Rotate dailies:** Move `daily/` files > 90 days old to `data/intelligence/archive/dailies/`
+- **Archive patterns:** Move patterns with decay < 0.1 to `data/intelligence/archive/patterns.yaml.archive`
 - **Delete patterns:** Remove patterns with decay < 0.05
 - **Backup:** Create `patterns.yaml.bak` before modifications
 - Updated `data/intelligence/knowledge/patterns.yaml` (cleaned)
 
 ### Acceptance Criteria
-- [ ] All daily files > 90 days old moved to `archive/dailies/`
-- [ ] All patterns with decay < 0.1 moved to `archive/patterns.yaml.archive`
+- [ ] All daily files > 90 days old moved to `data/intelligence/archive/dailies/`
+- [ ] All patterns with decay < 0.1 moved to `data/intelligence/archive/patterns.yaml.archive`
 - [ ] All patterns with decay < 0.05 deleted (with audit log)
 - [ ] `patterns.yaml.bak` created before cleanup
 - [ ] patterns.yaml metadata updated (total_patterns, deleted_patterns, archived_patterns)
@@ -42,7 +42,7 @@ task:
 1. List all files in `data/intelligence/daily/`
 2. Filter: files whose **filename date** (YYYY-MM-DD from the `YYYY-MM-DD.yaml` naming convention) is > 90 days old. Do NOT use filesystem mtime — it can be unreliable after git clone, copy, or restore operations.
 3. Create `data/intelligence/archive/dailies/` if missing
-4. Move filtered files to `archive/dailies/YYYY-MM/`
+4. Move filtered files to `data/intelligence/archive/dailies/YYYY-MM/`
 5. Log: N files archived, date range
 
 ### Phase 2: Pattern Archive
@@ -50,24 +50,24 @@ task:
 2. Create backup: `cp patterns.yaml patterns.yaml.bak`
 3. For each pattern:
    - If `decay_score < 0.05`: Delete entirely + log to audit.log
-   - Else if `0.05 <= decay_score < 0.1`: Move to `archive/patterns.yaml.archive`
+   - Else if `0.05 <= decay_score < 0.1`: Move to `data/intelligence/archive/patterns.yaml.archive`
    - Else: Keep in active patterns.yaml
 4. Update metadata: total_patterns, archived_patterns, deleted_patterns
 5. Log: N patterns archived, N patterns deleted
 
 ### Phase 3: Cleanup Log
-Generate `archive/cleanup-YYYY-MM-DD.log`:
+Generate `data/intelligence/archive/cleanup-YYYY-MM-DD.log`:
 ```
 # Compact-Archive Run — YYYY-MM-DD HH:MM:SS
 
 ## Daily Files
 - Files archived: N
 - Date range: YYYY-MM-DD to YYYY-MM-DD
-- New archive: archive/dailies/YYYY-MM/
+- New archive: data/intelligence/archive/dailies/YYYY-MM/
 
 ## Patterns
 - Patterns archived: N
-  - Archive file: archive/patterns.yaml.archive (appended)
+  - Archive file: data/intelligence/archive/patterns.yaml.archive (appended)
 - Patterns deleted: N (decay < 0.05)
   - IDs: [p001, p002, ...]
 - Active patterns remain: N
@@ -92,7 +92,7 @@ Generate `archive/cleanup-YYYY-MM-DD.log`:
 - WARN: No dailies > 90 days (normal if < 3 months old), no patterns to archive (normal if active learnings)
 
 ## Error Handling
-- If `archive/` dirs don't exist: Create them automatically
+- If `data/intelligence/archive/` dirs don't exist: Create them automatically
 - If `patterns.yaml.bak` fails: Abort cleanup (never delete without backup)
 - If decay calc is wrong: Use conservative threshold (keep if uncertain)
 - If cleanup log fails: Continue (cleanup happened, just missing audit trail)

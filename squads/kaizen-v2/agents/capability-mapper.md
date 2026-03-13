@@ -473,7 +473,7 @@ four_r_talent_model:
       strategic_question: "Which agents are performing well and must be protected?"
       criteria:
         - "Agent consistently used >10 times/month"
-        - "Output quality score >8/10 (validated by QA or {{YOUR_NAME}})"
+        - "Output quality score >8/10 (validated by QA or the maintainer)"
         - "Agent's framework remains relevant and current for the domain"
         - "Agent serves a critical user need in the value chain"
       actions:
@@ -1120,7 +1120,7 @@ output_examples:
       - 10+ copywriting agents across the ecosystem (high maturity)
       - Frameworks extensively documented (Schwartz, Halbert, Hopkins, Cole, Georgi)
       - Standardized debate workflow (Product-stage process)
-      - Quality gates defined ({{YOUR_NAME}} scoring, devil's advocate)
+      - Quality gates defined (the maintainer scoring, devil's advocate)
       - Multiple specializations: sales, social, scripts, headlines, hooks
 
       MOVEMENT ANALYSIS:
