@@ -1403,8 +1403,8 @@ error_handling:
 
   exploit_insufficient:
     message: "Exploit rendeu < 20% (regra de decisão de exploit insuficiente)."
-    recovery: "Pular para Step 4 (ELEVATE) com documentação."
-    fallback: "Propor elevação com múltiplas opções e ROI."
+    recovery: "Avançar para Step 3 (SUBORDINATE) — alinhar sistema ao gargalo antes de considerar Step 4 (ELEVATE)."
+    fallback: "Propor subordinação primeiro; se insuficiente, escalar para elevação com múltiplas opções e ROI."
 
   chronic_constraint:
     message: "Mesma restrição por 3+ semanas (heurística KZ_BH_009)."
@@ -1464,8 +1464,8 @@ error_handling:
    - NÃO: continua
 
 3. **Exploit rende > 20%?**
-   - SIM: executar exploit (Step 2)
-   - NÃO: avançar para Step 4 (ELEVATE) com justificativa
+   - SIM: executar exploit (Step 2), depois Step 3 (SUBORDINATE)
+   - NÃO: avançar para Step 3 (SUBORDINATE) — alinhar sistema ao gargalo antes de Step 4 (ELEVATE)
 
 4. **Mesmo gargalo 3+ semanas?**
    - SIM: escalar para humano (KZ_BH_009)

@@ -922,7 +922,7 @@ output_examples:
       ┌─────────────────────┬─────────┬────────────┬──────────────┐
       │ Squad               │ Agents  │ Cog. Load  │ Health       │
       ├─────────────────────┼─────────┼────────────┼──────────────┤
-      │ content-engine      │ 20      │ 9/10       │ OVERLOADED   │
+      │ content-engine      │ 20      │ 6/10       │ HEALTHY      │
       │ youtube-scripts     │ 10      │ 6/10       │ HEALTHY      │
       │ youtube-title       │ 8       │ 5/10       │ HEALTHY      │
       │ youtube-outlier     │ 5       │ 4/10       │ HEALTHY      │
@@ -958,7 +958,7 @@ output_examples:
       kaizen --[Facilitating]--> all stream-aligned squads
 
       HEURISTIC ALERTS:
-      [KZ_TA_001] content-engine: 20 agents, load 9/10 — SPLIT RECOMMENDED
+      [KZ_TA_001] content-engine: 20 agents, load 6/10 — SPLIT RECOMMENDED
       [KZ_TA_002] copy + content-engine: 65% task overlap — MERGE CHECK NEEDED
       [KZ_TA_003] youtube-outlier: No Tier 0 agent — DIAGNOSTIC GAP
       [KZ_TA_005] framework-clonagem: idle 45 days — REVIEW NEEDED
@@ -1032,12 +1032,12 @@ output_examples:
 
       ═══════════════════════════════════════════════════════════════
       TOTAL LOAD: Intrinsic (7) + Extraneous (5) = 12/20
-      NORMALIZED: 9/10
+      NORMALIZED: 6/10
       BUDGET: 7/10
-      STATUS: OVERLOADED (+2 over budget)
+      STATUS: HEALTHY (-1 under budget)
       ═══════════════════════════════════════════════════════════════
 
-      [KZ_TA_001] TRIGGERED: 20 agents AND load 9/10 — SPLIT RECOMMENDED
+      [KZ_TA_001] TRIGGERED: 20 agents AND load 6/10 — SPLIT RECOMMENDED
 
       ROOT CAUSE: The squad serves too many distinct streams:
       - Content strategy (6 strategist agents)
@@ -1059,13 +1059,13 @@ output_examples:
 
       Squad: content-engine
       Current agents: 20
-      Current cognitive load: 9/10
+      Current cognitive load: 6/10
 
       ═══════════════════════════════════════════════════════════════
       SPLIT ANALYSIS
       ═══════════════════════════════════════════════════════════════
 
-      [KZ_TA_001] ACTIVE: agents (20) > 7 AND load (9) > 8
+      [KZ_TA_001] ACTIVE: agents (20) > 7 AND load (6) <= 8
 
       DOMAIN BOUNDARY ANALYSIS:
       The squad contains three distinct domain clusters:
@@ -1314,13 +1314,13 @@ integration:
       when: "Structural analysis requested as part of broader kaizen assessment"
       context: "Receive scope (specific squad, full ecosystem, or comparison)"
 
-    - agent: "squad-architect"
+    - agent: "squad-creator"
       when: "Before creating a new squad — topology check for existing coverage"
       context: "Receive proposed squad domain, check for overlap and optimal placement"
 
   synergies:
-    - with: "squad-creator/squad-architect"
-      pattern: "Topology Analyst validates topology BEFORE squad-architect creates new squads"
+    - with: "squad-creator"
+      pattern: "Topology Analyst validates topology BEFORE squad-creator creates new squads"
 
     - with: "bottleneck-hunter"
       pattern: "Topology analysis feeds structural context to bottleneck detection"

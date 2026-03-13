@@ -42,14 +42,14 @@ phases:
 
       - step: 2.2
         name: "Merge Stop Hook"
-        source: "config/config.yaml"
+        source: "squads/kaizen-v2/config/config.yaml"
         hook: "kaizen-v2-stop-capture"
         action: "Append to hooks.Stop"
         output: "Hook registered"
 
       - step: 2.3
         name: "Merge SessionStart Hook"
-        source: "config/config.yaml"
+        source: "squads/kaizen-v2/config/config.yaml"
         hook: "kaizen-v2-session-briefing"
         action: "Append to hooks.SessionStart"
         output: "Hook registered"
@@ -59,18 +59,18 @@ phases:
     steps:
       - step: 3.1
         name: "Create Intelligence Dirs"
-        action: "mkdir -p data/intelligence/daily data/intelligence/reflections data/intelligence/knowledge data/intelligence/archive"
+        action: "mkdir -p squads/kaizen-v2/data/intelligence/daily squads/kaizen-v2/data/intelligence/reflections squads/kaizen-v2/data/intelligence/knowledge squads/kaizen-v2/data/intelligence/archive"
         output: "All directories created"
 
       - step: 3.2
         name: "Copy patterns.yaml Template"
         source: "squads/kaizen-v2/data/intelligence/knowledge/patterns.yaml"
-        dest: "data/intelligence/knowledge/patterns.yaml"
+        dest: "squads/kaizen-v2/data/intelligence/knowledge/patterns.yaml"
         output: "patterns.yaml initialized"
 
       - step: 3.3
         name: "Create .gitkeep Files"
-        action: "touch data/intelligence/daily/.gitkeep data/intelligence/reflections/.gitkeep data/intelligence/knowledge/.gitkeep data/intelligence/archive/.gitkeep"
+        action: "touch squads/kaizen-v2/data/intelligence/daily/.gitkeep squads/kaizen-v2/data/intelligence/reflections/.gitkeep squads/kaizen-v2/data/intelligence/knowledge/.gitkeep squads/kaizen-v2/data/intelligence/archive/.gitkeep"
         output: "Directories tracked in git"
 
   - phase: 4

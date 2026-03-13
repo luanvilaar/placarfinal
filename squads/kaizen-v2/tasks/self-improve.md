@@ -10,10 +10,22 @@ Entrada:
   - nome: usage_data
     tipo: object
     obrigatorio: true
+  - nome: baseline_data
+    tipo: yaml
+    obrigatorio: true
+    descricao: "ecosystem-baseline.yaml atual para comparação e atualização"
+  - nome: changelog
+    tipo: markdown
+    obrigatorio: false
+    descricao: "CHANGELOG.md para rastrear mudanças aplicadas"
 Saida:
   - nome: improvement_plan
     tipo: markdown
     obrigatorio: true
+  - nome: updated_baseline
+    tipo: yaml
+    obrigatorio: true
+    descricao: "ecosystem-baseline.yaml atualizado com dados correntes"
 Checklist:
   - Coletar meta-dados (reports anteriores, usage, data health)
   - Diagnosticar eficacia em 4 dimensoes
@@ -90,10 +102,13 @@ task:
     - id: "5"
       name: "Atualizar baseline"
       action: |
-        Regenerar ecosystem-baseline.yaml com dados atuais:
+        Regenerar ecosystem-baseline.yaml com dados atuais, preservando o schema completo:
+        - Preservar todas as seções obrigatórias: metadata, squads, agents, tasks, workflows, integrations
         - Contar squads, agentes, tasks, workflows
         - Atualizar status de cada squad
-        - Salvar com data atualizada
+        - Manter campos existentes que não mudaram (não sobrescrever com vazios)
+        - Validar que o output mantém a mesma estrutura YAML do input
+        - Salvar com data atualizada em metadata.last_updated
 
   output:
     - artifact: improvement_report

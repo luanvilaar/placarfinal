@@ -28,11 +28,10 @@ HE_DC_001:
 
   thresholds:
     fresh: 1.0                   # recém-observado ou reinforced
-    active: 0.7                  # uso regular
-    warm: 0.3                    # ainda relevante
-    cold: 0.1                    # sai do briefing
-    archive: 0.05                # movido para archive/ (0.05 <= decay < 0.1)
-    delete: 0.05                 # removido permanentemente
+    active: 0.8                  # uso regular (>= 0.8)
+    fading: 0.5                  # ainda no briefing com warning (>= 0.5)
+    archive: 0.05                # movido para archive/ [0.05, 0.1)
+    delete: 0.05                 # removido permanentemente [0, 0.05)
 
   decay_rates:
     general: 0.05                # ~60 dias até delete
@@ -41,16 +40,15 @@ HE_DC_001:
   veto_conditions:
     - condition: "pattern_verified_and_score_below_archive"
       action: "WARN — Pattern verificado em decay. Considere reforço antes de archive."
-    - condition: "all_patterns_below_cold"
+    - condition: "all_patterns_below_fading"
       action: "ALERTA — Nenhum pattern ativo no briefing. Base de conhecimento pode estar estagnada."
     - condition: "pattern_used_today_but_score_was_archive"
       action: "RESCUE — Resgatar do archive, resetar score para 1.0."
 
   decision_tree:
-    - IF score >= 0.7 THEN active_pattern_keep_in_briefing
-    - IF score >= 0.3 AND score < 0.7 THEN warm_pattern_include_if_space
-    - IF score >= 0.1 AND score < 0.3 THEN cold_pattern_exclude_from_briefing
-    - IF score >= 0.05 AND score < 0.1 THEN archive_pattern_move_to_archive
+    - IF score >= 0.8 THEN active_pattern_keep_in_briefing
+    - IF score >= 0.5 AND score < 0.8 THEN fading_pattern_include_with_warning
+    - IF score >= 0.05 AND score < 0.5 THEN archive_pattern_move_to_archive
     - IF score < 0.05 THEN delete_pattern_remove_permanently
     - TERMINATION: all_patterns_assessed_and_actioned
 ```
@@ -68,11 +66,10 @@ PASSO 2: Calcular Score
 
 PASSO 3: Classificar
   - Fresh (1.0): recém-reforçado
-  - Ativo (>=0.7): uso regular
-  - Morno (>=0.3): ainda no briefing se houver espaço
-  - Frio (>=0.1 e <0.3): fora do briefing
-  - Archive (0.05 <= decay < 0.1): mover para archive/
-  - Delete (< 0.05): remover permanentemente
+  - Active (>=0.8): uso regular, incluir no briefing
+  - Fading (>=0.5): ainda no briefing com warning
+  - Archive (>=0.05 e <0.5): mover para archive/
+  - Delete (<0.05): remover permanentemente
 
 PASSO 4: Agir
   - Archive: mover entry para archive/YYYY-MM.yaml
@@ -90,13 +87,15 @@ PASSO 4: Agir
 - **Observado:** 30 dias atrás, 0 usos desde então
 - **Rate:** general (0.05)
 - **Cálculo:** e^(-0.05 × 30) = 0.22
-- **Ação:** Fora do briefing. Se não for reforçado, archive em ~15 dias.
+- **Classificação:** Archive (>= 0.05 e < 0.5)
+- **Ação:** Mover para archive/. Abaixo do threshold fading (0.5).
 
 ### Pattern Verified em Decay Lento (score 0.47)
 - **Observado:** 30 dias atrás, verified
 - **Rate:** verified (0.025)
 - **Cálculo:** e^(-0.025 × 30) = 0.47
-- **Ação:** Ainda no briefing (> 0.3). Decay 2x mais lento por ser verificado.
+- **Classificação:** Archive (>= 0.05 e < 0.5)
+- **Ação:** Mover para archive/. Mesmo verificado, score abaixo de fading (0.5). Decay 2x mais lento por ser verificado.
 
 ---
 

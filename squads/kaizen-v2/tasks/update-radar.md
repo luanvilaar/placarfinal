@@ -55,7 +55,11 @@ task:
       name: "Inventory current tools"
       action: |
         1. Scan all squad configs and agent files for tool references
-        2. Categorize into 4 quadrants: apis, mcps, libraries, ai_models
+        2. Categorize into 4 quadrants (canonical names from initial-radar.yaml):
+           - "APIs" — external API integrations
+           - "MCPs/Integrations" — MCP servers and integration tools
+           - "Libraries/Frameworks" — code libraries and frameworks
+           - "AI Models" — LLM and AI model providers
         3. Count usage frequency per tool
 
     - id: "2"
@@ -125,12 +129,21 @@ task:
     - artifact: updated_radar
       format: "yaml"
       path: "data/radar/radar-{date}.yaml"
+      metadata_per_ring: |
+        Each tool entry in the output YAML must include:
+          - name: tool name
+          - since: "YYYY-QN" (quarter when first placed in this ring)
+          - used_by: [list of squads using this tool]
+          - notes: free-text rationale or observations
+          - ring_movement: "NEW | PROMOTED | DEMOTED | STABLE" (vs previous radar)
+          - fitness_score: numeric score from Step 5 (if available)
+          - external_validation: "CONFIRMED | CAUTIOUS | BLOCKED" (from Step 3, Adopt/Trial only)
     - artifact: radar_report
       format: "markdown"
       template: "templates/tech-radar-tmpl.md"
 
   acceptance_criteria:
-    - "All tools categorized into quadrants (apis, mcps, libraries, ai_models)"
+    - "All tools categorized into quadrants (APIs, MCPs/Integrations, Libraries/Frameworks, AI Models)"
     - "All tools placed in appropriate ring with evidence"
     - "Adopt/Trial tools validated via external research (Step 3)"
     - "Movements documented with rationale"

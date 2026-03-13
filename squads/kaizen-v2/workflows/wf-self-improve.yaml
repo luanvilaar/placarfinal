@@ -67,9 +67,11 @@ workflow:
         - id: "0.3"
           name: "Analisar atividade do próprio squad"
           action: |
-            1. git log com filtro squads/kaizen-v2/ — frequência de uso
-            2. Quais comandos foram executados (chief, analyze, gaps, etc.)
-            3. Quais agentes nunca foram ativados
+            1. Scan .aios/logs/ for kaizen-v2 related entries (primary source)
+            2. Read data/intelligence/daily/ digests for recent squad activity
+            3. Fallback: git log --oneline --since='7 days ago' -- squads/kaizen-v2/
+            4. Quais comandos foram executados (chief, analyze, gaps, etc.)
+            5. Quais agentes nunca foram ativados
           output: "usage_data"
 
         - id: "0.4"
@@ -171,6 +173,7 @@ workflow:
 
   output:
     primary: "data/reports/self-improve-{date}.md"
+    changelog_path: "data/reports/self-improve-YYYY-MM-DD.md"
     sections:
       - meta_diagnostico (saúde do próprio squad)
       - recomendações_implementadas_vs_ignoradas

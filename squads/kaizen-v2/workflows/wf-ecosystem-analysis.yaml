@@ -99,19 +99,19 @@ workflow:
       steps:
         - id: "0.5.1"
           name: "Audit autonomy levels"
-          action: "bash scripts/kaizen-audit-autonomy.sh"
+          action: "Agent executes task: squads/kaizen-v2/tasks/health-check.md (autonomy section)"
           executor: worker
           output: "autonomy_report"
 
         - id: "0.5.2"
           name: "Audit output quality"
-          action: "bash scripts/kaizen-audit-output-quality.sh --all"
+          action: "Agent executes task: squads/kaizen-v2/tasks/audit-output-quality.md"
           executor: worker
           output: "output_quality_report"
 
         - id: "0.5.3"
           name: "Run auto-healing gate"
-          action: "bash scripts/auto-healing-gate.sh --all"
+          action: "Agent executes task: squads/kaizen-v2/tasks/auto-healing-gate.md"
           executor: worker
           output: "healing_report"
 
@@ -209,7 +209,7 @@ workflow:
         - agent: cost-analyst
           task: "Calculate costs, ROI per squad, identify waste"
           input:
-            - "tool_inventory: radar_report.tool_inventory"
+            - "tool_inventory: phase_1.tool_inventory"
             - "usage_metrics: performance_report.usage_metrics"
             - "previous_reports: [topology_report, performance_report, bottleneck_report, capability_report, radar_report]"
           output: "cost_report"

@@ -61,7 +61,7 @@ Technical guide for hooks, troubleshooting, and configuration.
 
 **How it works:**
 1. Session starts
-2. SessionStart hook fires (async, 1s timeout)
+2. SessionStart hook fires (async, 3s timeout)
 3. Reads patterns.yaml (top 5 patterns)
 4. Reads last 3 dailies (recent learnings)
 5. Generates ≤ 2KB briefing
@@ -69,17 +69,6 @@ Technical guide for hooks, troubleshooting, and configuration.
 7. Session starts with learned patterns visible
 
 ## Configuration
-
-### Daily Capture Settings
-
-In `config/config.yaml`:
-```yaml
-hooks:
-  stop_hook:
-    enabled: true
-    timeout_ms: 5000
-    fail_silent: true
-```
 
 ### Reflection Schedule
 
@@ -124,7 +113,7 @@ git log --since=today
 
 **Fix:**
 1. Verify `.claude/settings.json` has correct hook entry
-2. Check `data/intelligence/daily/` directory exists
+2. Check `squads/kaizen-v2/data/intelligence/daily/` directory exists
 3. Run `/kaizen-v2:*install` to re-register hooks
 4. Check `.aios/logs/kaizen-stop.log` for error details
 
@@ -138,7 +127,7 @@ git log --since=today
 grep "kaizen-v2-session-briefing" .claude/settings.json
 
 # Check patterns.yaml exists
-test -f data/intelligence/knowledge/patterns.yaml && echo "OK" || echo "MISSING"
+test -f squads/kaizen-v2/data/intelligence/knowledge/patterns.yaml && echo "OK" || echo "MISSING"
 
 # Check logs
 tail -f .aios/logs/kaizen-session-briefing.log
@@ -146,7 +135,7 @@ tail -f .aios/logs/kaizen-session-briefing.log
 
 **Fix:**
 1. Verify SessionStart hook is registered
-2. Ensure patterns.yaml exists: `data/intelligence/knowledge/patterns.yaml`
+2. Ensure patterns.yaml exists: `squads/kaizen-v2/data/intelligence/knowledge/patterns.yaml`
 3. Check briefing size: `wc -c < briefing.txt` (should be < 2048 bytes)
 4. Run `/kaizen-v2:*health` to verify installation
 
@@ -217,7 +206,7 @@ node squads/kaizen-v2/scripts/stop-capture.cjs
 # {"hookEventName":"Stop","hookSpecificOutput":{"additionalContext":"..."}}
 
 # Check daily file created
-ls -la data/intelligence/daily/$(date +%Y-%m-%d).yaml
+ls -la squads/kaizen-v2/data/intelligence/daily/$(date +%Y-%m-%d).yaml
 ```
 
 ### Test SessionStart Hook
@@ -279,7 +268,7 @@ Hooks are appended to existing `.claude/settings.json`:
 ### Disk Usage
 
 ```plaintext
-data/intelligence/
+squads/kaizen-v2/data/intelligence/
 ├── daily/           # ~30KB/month (compacts quarterly)
 ├── reflections/     # ~10KB/month
 ├── knowledge/       # patterns.yaml ~5-10KB (grows slowly)
@@ -295,20 +284,16 @@ Total: ~100-200KB/year (manageable)
 Automatically created before archive/delete:
 ```bash
 # Quarterly backup
-cp data/intelligence/knowledge/patterns.yaml \
-   data/intelligence/knowledge/patterns.yaml.bak.$(date +%Y-%m-%d)
+cp squads/kaizen-v2/data/intelligence/knowledge/patterns.yaml \
+   squads/kaizen-v2/data/intelligence/knowledge/patterns.yaml.bak.$(date +%Y-%m-%d)
 ```
 
 ### Restore patterns.yaml
 
 ```bash
 # If corrupted, restore from backup
-cp data/intelligence/knowledge/patterns.yaml.bak.YYYY-MM-DD \
-   data/intelligence/knowledge/patterns.yaml
-
-# Or reinit from template
-cp squads/kaizen-v2/data/intelligence/knowledge/patterns.yaml \
-   data/intelligence/knowledge/patterns.yaml
+cp squads/kaizen-v2/data/intelligence/knowledge/patterns.yaml.bak.YYYY-MM-DD \
+   squads/kaizen-v2/data/intelligence/knowledge/patterns.yaml
 ```
 
 ### Restore from Git
@@ -316,10 +301,10 @@ cp squads/kaizen-v2/data/intelligence/knowledge/patterns.yaml \
 If intelligence data is in git:
 ```bash
 # Restore entire directory
-git restore data/intelligence/
+git restore squads/kaizen-v2/data/intelligence/
 
 # Or specific file
-git restore data/intelligence/knowledge/patterns.yaml
+git restore squads/kaizen-v2/data/intelligence/knowledge/patterns.yaml
 ```
 
 ## Maintenance

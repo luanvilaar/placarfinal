@@ -48,9 +48,10 @@ task:
 
 ### Phase 2: Pattern Archive
 1. Load `patterns.yaml`
-2. Create backup: `cp patterns.yaml patterns.yaml.bak`
+2. Create backup: `cp patterns.yaml data/intelligence/knowledge/patterns.yaml.bak`
 3. For each pattern:
-   - If `decay_score < 0.05`: Delete entirely + log to audit.log
+   - If `decay_score < 0.05` AND `verified: false`: Delete entirely + log to audit.log
+   - If `decay_score < 0.05` AND `verified: true`: Archive + flag `archived_verified: true` (never delete verified patterns)
    - Else if `0.05 <= decay_score < 0.1`: Move to `data/intelligence/archive/patterns.yaml.archive`
    - Else: Keep in active patterns.yaml
 4. Update metadata: total_patterns, archived_patterns, deleted_patterns
@@ -81,8 +82,8 @@ Generate `data/intelligence/archive/cleanup-YYYY-MM-DD.log`:
 ```
 
 ### Constraints
-- Decay bands (mutually exclusive): `< 0.05` = delete, `0.05 <= decay < 0.1` = archive, `>= 0.1` = keep
-- Never delete patterns with `verified: true` (high confidence) without warning
+- Decay bands (mutually exclusive): `< 0.05` AND `verified: false` = delete, `< 0.05` AND `verified: true` = archive + flag, `0.05 <= decay < 0.1` = archive, `>= 0.1` = keep
+- Never delete patterns with `verified: true` — archive with `archived_verified: true` flag instead
 - Always create backup before deletions
 - Mutex: Não executar compact-archive enquanto reflect estiver em andamento
 - Fallback: If deletion fails, leave in active (won't harm, just cluttered)
