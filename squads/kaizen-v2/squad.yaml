@@ -119,21 +119,22 @@ components:
     # v1 (copiado)
     - recommendation-defensibility.md
   minds:
-    # Core v2 — Tier 0 Sensorial
+    # Core v2 — Tier 0 Sensorial (included in this squad)
     - hermann_ebbinghaus
     - lance_martin
     - chris_argyris
-    # v1 (copiados)
-    - skelton_pais
-    - eliyahu_goldratt
-    - nicole_forsgren
-    - simon_wardley
-    - martin_fowler
-    - kaplan_norton
-    - john_doerr
-    - josh_bersin
-    - neal_ford
-    - alistair_croll
+    # v1 minds — referenced from squads/kaizen/minds/ (not duplicated)
+    # Install kaizen v1 first, then kaizen-v2 extends it
+    # - skelton_pais (Team Topologies)
+    # - eliyahu_goldratt (Theory of Constraints)
+    # - nicole_forsgren (DORA Metrics)
+    # - simon_wardley (Wardley Maps)
+    # - martin_fowler (Technology Radar)
+    # - kaplan_norton (Balanced Scorecard)
+    # - john_doerr (OKRs)
+    # - josh_bersin (4R Model)
+    # - neal_ford (Fitness Functions)
+    # - alistair_croll (Lean Analytics)
   scripts:
     # Core v2 — Hooks
     - stop-capture.cjs
@@ -155,7 +156,7 @@ metrics:
   agents: 8
   frameworks: 14
   heuristics: 35
-  minds: 13
+  minds: 3  # v2-specific (+ 10 inherited from kaizen v1)
   quality_gates: 6
   daily_cost: "~$0.30"
   weekly_cost: "~$4.80"

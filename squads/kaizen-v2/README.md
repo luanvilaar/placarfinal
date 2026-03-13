@@ -2,6 +2,11 @@
 
 **Evolução do kaizen v1:** squad que vigia e melhora o ecossistema, agora com Tier 0 Sensorial para captura diária de learnings, pattern learning via forgetting curve, e briefings proativos de sessão.
 
+## Dependencies
+
+- **Requires:** `squads/kaizen/` (v1.3.0+) for base minds (10 mind clones referenced by kaizen-v2)
+- Install kaizen v1 first, then kaizen-v2 extends it
+
 ## O que é Kaizen v2?
 
 Kaizen v2 é uma **extensão fork do kaizen v1.3.0** (não modifica v1, estende capacidades):
@@ -67,8 +72,8 @@ squads/kaizen-v2/
 ├── minds/
 │   ├── hermann_ebbinghaus/              # [NOVO] Forgetting curve framework
 │   ├── lance_martin/                    # [NOVO] Claude-diary pattern
-│   ├── chris_argyris/                   # [NOVO] Double-loop learning
-│   └── [10 mais]                        # v1 minds (copiados)
+│   └── chris_argyris/                   # [NOVO] Double-loop learning
+│   # v1 minds (10) referenced from squads/kaizen/minds/ — not duplicated
 │
 ├── scripts/
 │   ├── stop-capture.cjs                 # [NOVO] Stop hook → daily capture
@@ -360,6 +365,7 @@ intelligence:
 | **Memória** | Ad-hoc | Persistente via patterns.yaml |
 | **Decay** | N/A | Forgetting curve (Ebbinghaus) |
 | **Briefing** | N/A | SessionStart injection |
+| **Minds** | 10 (included) | 3 v2-specific (+ 10 inherited from v1 by reference) |
 | **Agentes** | 7 | 8 (+ memory-keeper) |
 | **Ativação** | `/kaizen:*analyze` | `/kaizen-v2:*capture`, `/kaizen-v2:*report` |
 

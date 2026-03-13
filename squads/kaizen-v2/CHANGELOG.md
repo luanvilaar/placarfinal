@@ -18,9 +18,16 @@
 - **Mind: Lance Martin** — Completo: voice_dna.yaml, voice-identity.md, framework-primary.md, signature-phrases.md, heuristic LM_CR_001 (Capture-Reflect Quality Gate)
 - **Mind: Chris Argyris** — Completo: voice_dna.yaml, voice-identity.md, framework-primary.md, signature-phrases.md, heuristic CA_DL_001 (Double-Loop Reflection Quality)
 
+#### Changed
+
+- **Minds:** Removed duplicated v1 minds — kaizen-v2 now references minds from `squads/kaizen/minds/` instead of duplicating them (reduces ~70 duplicate files)
+- **squad.yaml:** `metrics.minds` updated from 13 to 3 (v2-specific only; 10 inherited from kaizen v1)
+- **README.md:** Added Dependencies section noting kaizen v1.3.0+ requirement for base minds
+
 #### Removed
 
 - `.gitkeep` files das 3 minds (substituídos por arquivos reais)
+- 10 duplicated v1 mind directories (skelton_pais, eliyahu_goldratt, nicole_forsgren, simon_wardley, martin_fowler, kaplan_norton, john_doerr, josh_bersin, neal_ford, alistair_croll) — now referenced from `squads/kaizen/`
 
 ---
 
