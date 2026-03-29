@@ -170,37 +170,37 @@ export const RankingTable: React.FC<RankingTableProps> = ({ roundId, isPublic = 
                 style={{ zIndex: roundResults.length - index }}
               >
                 <div className={clsx(
-                  "group relative flex items-center justify-between p-4 rounded-lg border transition-all duration-300",
+                  "group relative flex flex-row items-center justify-between p-3 sm:p-4 rounded-lg border transition-all duration-300 gap-2 sm:gap-4",
                   (!isShuffling && isLider) ? "bg-violet-glow border-violet shadow-[0_0_20px_rgba(139,92,246,0.1)]" : "bg-surface border-border",
                   (!isShuffling && !isAboveCorte) && "opacity-60 border-status-error/30",
                   isShuffling && "bg-black/50 border-violet/20"
                 )}>
-                  <div className="flex items-center gap-6">
+                  <div className="flex items-center gap-3 sm:gap-6 flex-1 min-w-0">
                     <span className={clsx(
-                      "font-mono text-2xl w-10 text-center",
+                      "font-mono text-xl sm:text-2xl w-8 sm:w-10 text-center shrink-0",
                       (!isShuffling && isLider) ? "text-violet font-bold" : "text-white/50"
                     )}>
                       {isShuffling ? "??" : (realRank + 1).toString().padStart(2, '0')}
                     </span>
                     
-                    <div>
-                      <h3 className="text-white font-medium text-lg flex items-center gap-2">
-                        {team.nome}
-                        {!isShuffling && isLider && <Trophy className="w-4 h-4 text-violet animate-bounce" />}
+                    <div className="overflow-hidden min-w-0 pr-2">
+                       <h3 className="text-white font-medium text-base sm:text-lg flex items-center gap-2 truncate">
+                        <span className="truncate block">{team.nome}</span>
+                        {!isShuffling && isLider && <Trophy className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-violet animate-bounce shrink-0" />}
                       </h3>
-                      <span className="text-white/30 text-xs font-mono uppercase tracking-wider">
+                      <span className="text-white/30 text-[9px] sm:text-xs font-mono uppercase tracking-wider block truncate">
                         {team.categoria}
                       </span>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-8">
+                  <div className="flex flex-col sm:flex-row items-end sm:items-center gap-1 sm:gap-8 shrink-0">
                     <div className="text-right">
                       {isShuffling ? (
-                         <div className="w-24 h-8 bg-white/5 animate-pulse rounded"></div>
+                         <div className="w-16 sm:w-24 h-6 sm:h-8 bg-white/5 animate-pulse rounded"></div>
                       ) : (
                          <span className={clsx(
-                          "block font-mono text-2xl",
+                          "block font-mono text-xl sm:text-2xl",
                           isLider ? "text-violet" : "text-white"
                          )}>
                           {res.tempo_formatado}
