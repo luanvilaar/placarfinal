@@ -27,3 +27,4 @@ Thumbs.db
 .claude/
 .gemini/
 tsconfig.tsbuildinfo
+.vercel

@@ -232,7 +232,7 @@ export function AITeamAssistant() {
       )}
 
       <div className="mt-4 text-xs font-mono text-white/20 border-t border-border pt-4">
-        ℹ️ Modo TESTE (mock local). Quando a Edge Function estiver deployada, remova ".test" do import em admin/page.tsx
+        ℹ️ Modo TESTE (mock local). Quando a Edge Function estiver deployada, remova &quot;.test&quot; do import em admin/page.tsx
       </div>
     </div>
   )
