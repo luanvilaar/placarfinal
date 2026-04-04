@@ -1,0 +1,29 @@
+# Dependencies
+node_modules
+node_modules/
+
+# Next.js Build (IMPORTANTE: não subir builds para o git)
+.next/
+out/
+build/
+dist/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment
+.env
+.env*.local
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Project-specific ignores
+.aios-core/local/
+.claude/
+.gemini/
+tsconfig.tsbuildinfo
