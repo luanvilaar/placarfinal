@@ -3,11 +3,11 @@ import { NextRequest, NextResponse } from 'next/server'
 export async function POST(req: NextRequest) {
   try {
     const { message } = await req.json()
-    const GEMINI_API_KEY = process.env.GEMINI_API_KEY
+    const OPENAI_API_KEY = process.env.OPENAI_API_KEY
 
-    if (!GEMINI_API_KEY) {
+    if (!OPENAI_API_KEY) {
       return NextResponse.json(
-        [{ error: 'Chave Gemini não configurada.' }],
+        [{ error: 'Chave OpenAI não configurada.' }],
         { status: 500 }
       )
     }
@@ -31,28 +31,30 @@ Se não conseguir extrair:
 TEXTO DO USUÁRIO:
 ${message}`
 
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }]
-        })
-      }
-    )
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${OPENAI_API_KEY}`
+      },
+      body: JSON.stringify({
+        model: 'gpt-4o-mini',
+        messages: [{ role: 'user', content: prompt }],
+        temperature: 0.7
+      })
+    })
 
     if (!response.ok) {
       const error = await response.text()
-      console.error('Gemini API error:', error)
+      console.error('OpenAI API error:', error)
       return NextResponse.json(
-        [{ error: 'Erro ao chamar Gemini' }],
+        [{ error: 'Erro ao chamar OpenAI' }],
         { status: response.status }
       )
     }
 
     const data = await response.json()
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || ''
+    const text = data.choices?.[0]?.message?.content || ''
     const jsonMatch = text.match(/\[[\s\S]*\]/)
     const result = JSON.parse(jsonMatch ? jsonMatch[0] : '[]')
 
