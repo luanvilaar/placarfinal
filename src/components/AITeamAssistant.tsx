@@ -83,9 +83,9 @@ export function AITeamAssistant() {
   return (
     <div className="bg-surface border border-border p-6 rounded-xl mt-6">
       <div className="flex items-center gap-2 mb-4">
-        <Sparkles size={16} className="text-violet-400" />
+        <Sparkles size={16} className="text-emerald-400" />
         <span className="text-xs font-mono text-white/30 uppercase tracking-widest">Assistente IA</span>
-        <span className="text-xs bg-violet-500/20 text-violet-400 px-2 py-0.5 rounded font-mono">Gemini</span>
+        <span className="text-xs bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded font-mono">OpenAI</span>
       </div>
 
       <div className="flex gap-2">
